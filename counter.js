@@ -1,5 +1,8 @@
 let OpNbSigne = []
 let tmpNumber = "";
+let res;
+let sign;
+let nombre;
 let result = document.getElementById("result");
 function screen(content) {
   result.textContent = content;
@@ -22,15 +25,22 @@ document.querySelectorAll(".operator").forEach(elOp => {
       }
   });
 });
-document.getElementById("equal").addEventListener("click", () => {
+function resetEquation() {
+  tmpNumber = "";
+  OpNbSigne = [];
+  nombre = [];
+  sign = [];
+  res = "";
+}
+function equation(){
   OpNbSigne.push(tmpNumber);
   tmpNumber = "";
   if (!(OpNbSigne.length%2==0)) { //vérifie si l'opération mathématique a une longeur impaire
-    let res;
-    let sign = OpNbSigne.filter(nb=>!/[\d.]/.test(nb)); // stock les sign dans un nouveau tableau
-    let nombre = OpNbSigne.map(nb => parseFloat(nb)).filter(nb => !isNaN(nb)); // stock les nombres dans un nouveau tableau
-    // console.log("try sign "+sign) //savoir les sign introduie par l'utlisateur
-    // console.log("try nombre "+nombre) //savoir les nombres introduie par l'utlisateur
+    
+    sign = OpNbSigne.filter(nb=>!/[\d.()]/.test(nb)); // stock les sign dans un nouveau tableau
+    nombre = OpNbSigne.map(nb => parseFloat(nb)).filter(nb => !isNaN(nb)); // stock les nombres dans un nouveau tableau
+    console.log("try sign "+sign) //savoir les sign introduie par l'utlisateur
+    console.log("try nombre "+nombre) //savoir les nombres introduie par l'utlisateur
     for (let i = 0; i < sign.length; i++) { //for qui calcule les valeur des nombre uniquement pour les signes pemdas prioritére
       if (sign[i] === "×" || sign[i] === "/" || sign[i] === "%") {
         switch (sign[i]) {
@@ -73,4 +83,13 @@ document.getElementById("equal").addEventListener("click", () => {
       OpNbSigne.splice(i)
     }
   }
+};
+
+document.getElementById("equal").addEventListener("click", () => {equation()});
+document.getElementById("reset").addEventListener("click", () => {
+  screen(0);
+  resetEquation()
+  // console.log(nombre); // Vérifie si les tableaux sont vides
+  // console.log(sign);
+  // console.log(OpNbSigne);
 });
