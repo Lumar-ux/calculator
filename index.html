@@ -9,10 +9,10 @@
   </head>
   <body class="bg-white h-screen w-screen">
     <main id="app" class="md:container mx-auto">
-      <section class="calcuArea bg-slate-600 w-full p-8 flex justify-end">
+      <section class="calcuArea bg-slate-600 w-full p-8 flex justify-end rounded-t-2xl">
         <p class="text-2xl text-white" id="result">0</p>
       </section>
-      <section class="opButton bg-slate-800 w-full grid grid-cols-4 grid-row-5 gap-2">
+      <section class="opButton bg-slate-800 w-full grid grid-cols-4 grid-row-5 gap-2 rounded-b-3xl">
         <button class="number bg-slate-200 font-bold p-5" type="button" id="para-start">(</button>
         <button class="number bg-slate-200 font-bold p-5" type="button" id="para-end">)</button>
         <button class="operator bg-slate-200 font-bold p-5" type="button" id="modulo">%</button>
@@ -29,10 +29,10 @@
         <button class="number bg-slate-200 font-bold p-5" type="button" id="two">2</button>
         <button class="number bg-slate-200 font-bold p-5" type="button" id="three">3</button>
         <button class="operator bg-slate-200 font-bold p-5" type="button" id="substraction">-</button>
-        <button class="number bg-slate-200 font-bold p-5" type="button" id="zero">0</button>
+        <button class="number bg-slate-200 font-bold p-5 rounded-bl-2xl" type="button" id="zero">0</button>
         <button class="number bg-slate-200 font-bold p-5" type="button" id="dot">.</button>
-        <button class="number bg-slate-200 font-bold p-5" type="button" id="equal">=</button>
-        <button class="operator bg-slate-200 font-bold p-5" type="button" class="" id="addition">+</button>
+        <button class="bg-slate-200 font-bold p-5" type="button" id="equal">=</button>
+        <button class="operator bg-slate-200 font-bold p-5 rounded-br-2xl" type="button" class="" id="addition">+</button>
       </section>
     </main>
     <script type="module" src="/counter.js"></script>

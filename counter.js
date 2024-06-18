@@ -1,61 +1,76 @@
-let nb1 = "";
-let nb2 = "";
-let operation = "";
+let OpNbSigne = []
+let tmpNumber = "";
 let result = document.getElementById("result");
-
-function screen() {
-  result.textContent = nb1 + operation + nb2;
+function screen(content) {
+  result.textContent = content;
 }
-
 document.querySelectorAll(".number").forEach(elNu => {
   elNu.addEventListener("click", () => {
-    if (!operation&&!nb1) {
-      nb1 += elNu.textContent;
-    } else {
-      nb2 += elNu.textContent;
-    }
-    screen();
+    tmpNumber += elNu.textContent; // ajoute le(s) valeur(s) dans une variable temporaire (tmp)
+    screen(tmpNumber); //affiche la valeur dans la class html result
   });
 });
-
 document.querySelectorAll(".operator").forEach(elOp => {
   elOp.addEventListener("click", () => {
-    if (nb1) { 
-      operation = elOp.textContent; 
-      screen();
-    }
+    if (tmpNumber !== ""||OpNbSigne[0] !== "") { //vérifie que la premiere valeur de la variable tmp ne soit pas vide et pareil apres 1 equal effectué
+      if (tmpNumber !== ""){ //vérifie que la premiere valeur de la variable tmp ne soit pas vide uniquement
+        OpNbSigne.push(tmpNumber); //ajout la valeur tmp dans le tableau
+      }
+        tmpNumber = ""; //vide la variable tmp
+        OpNbSigne.push(elOp.textContent);//ajout la valeur du sign dans le tableau
+        screen(elOp.textContent); //affiche la valeur du sign dans la class html result
+      }
   });
 });
-
 document.getElementById("equal").addEventListener("click", () => {
-  if (nb1 && nb2 && operation) {
-    let num1 = parseFloat(nb1);
-    let num2 = parseFloat(nb2);
+  OpNbSigne.push(tmpNumber);
+  tmpNumber = "";
+  if (!(OpNbSigne.length%2==0)) { //vérifie si l'opération mathématique a une longeur impaire
     let res;
-    switch (operation) {
-      case "+":
-       res = num1 + num2;
-        break;
-      case "-":
-       res = num1 - num2;
-        break;
-      case "×":
-       res = num1 * num2;
-        break;
-      case "/":
-        if (num2 === 0) {
-         res = "Erreur";
-        } else {
-         res = num1 / num2;
+    let sign = OpNbSigne.filter(nb=>!/[\d.]/.test(nb)); // stock les sign dans un nouveau tableau
+    let nombre = OpNbSigne.map(nb => parseFloat(nb)).filter(nb => !isNaN(nb)); // stock les nombres dans un nouveau tableau
+    // console.log("try sign "+sign) //savoir les sign introduie par l'utlisateur
+    // console.log("try nombre "+nombre) //savoir les nombres introduie par l'utlisateur
+    for (let i = 0; i < sign.length; i++) { //for qui calcule les valeur des nombre uniquement pour les signes pemdas prioritére
+      if (sign[i] === "×" || sign[i] === "/" || sign[i] === "%") {
+        switch (sign[i]) {
+          case "×":
+            nombre[i]*=nombre[i + 1];
+            break;
+          case "/":
+            if (nombre[i + 1] === 0) {
+              result.textContent = "Erreur: division par zéro";
+              return;
+            }
+            nombre[i]/=nombre[i + 1];
+            break;
+          case "%":
+            nombre[i]=nombre[i + 1];
+            break;
         }
-        break;
-      case "%":
-       res = num1 % num2;
-        break;
+        nombre.splice(i + 1, 1); // supprime nombre a l'index suivant.
+        sign.splice(i, 1); // supprime signe a l'index actuel.
+        i--; // permet de recaler l'index vers la gauche sinon rest décalé (apres les deux slice)
+      }
+     }
+      res = nombre[0];
+      for(let s=0;s<sign.length;s++){ //for qui calcule les valeur des nombre uniquement pour le reste des signe.
+        switch (sign[s]) {
+          case "+":
+            res+=nombre[s+1];
+            break;
+          case "-":
+            res-=nombre[s+1];
+            break;
+        }
     }
-    result.textContent = res;
-    nb1 = res.toString();
-    nb2 = "";
-    operation = "";
+    result.textContent = res; //udate l'affichage par la réponse
+    OpNbSigne[0] = res; //le rest de code, stock la réponse et vide le rest pour pouvoir continué apres un premier equal
+    nombre=[];
+    sign=[];
+    res = "";
+    for(let i=1;i<OpNbSigne.length;i++){
+      OpNbSigne.splice(i)
+    }
   }
 });
