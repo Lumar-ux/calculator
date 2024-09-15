@@ -19,13 +19,21 @@ Ma calculatrice propose les opérations de base (+, -, x, /), ainsi que :
 - La possibilité d'effacer l'affichage.
 - Un design responsive qui s'adapte à différentes tailles d'écran.
 
-## Bonus
+Voici une réécriture de la partie **Bonus** afin de présenter des fonctionnalités futures qui pourraient impressionner une entreprise dans le domaine IT :
 
-Pour aller plus loin, j'ai ajouté les fonctionnalités suivantes :
+## Bonus et Évolutions Futures
 
-- Historique des opérations précédentes
-- Calculatrice scientifique (fonctions trigonométriques, logarithmes, etc.)
-- Conversion d'unités (longueur, poids, température, etc.)
+Dans une optique d'amélioration continue et d'innovation, plusieurs fonctionnalités avancées pourraient être intégrées à l'application dans les versions futures, notamment :
+
+- **Personnalisation du thème utilisateur** : offrir à l'utilisateur la possibilité de personnaliser l'apparence de la calculatrice avec des thèmes clairs, sombres, ou personnalisés.
+  
+- **Calculatrice avancée et modulaire** : implémentation de modes supplémentaires tels qu'un mode financier (calculs d'intérêt, amortissement, etc.) ou un mode programmeur (opérations en binaire, hexadécimal, etc.).
+
+- **Reconnaissance vocale** : permettre la saisie des calculs par commande vocale, rendant l'application plus accessible et intuitive.
+
+- **Sauvegarde persistante de l'historique** : stocker l'historique des calculs dans le navigateur (via `localStorage` ou une base de données locale) afin de pouvoir consulter les calculs effectués lors de sessions précédentes.
+
+- **Support multi-langue** : proposer l'application dans plusieurs langues pour une portée internationale.
 
 ## Installation et utilisation
 
